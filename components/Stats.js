@@ -53,7 +53,7 @@ export default function Stats({ url }) {
         <BlockSpan>{stats.deaths ? stats.deaths.value : "NA"}</BlockSpan>
       </StatBlock>
       <StatBlock>
-        <BlockTitle>Confirmed:</BlockTitle>
+        <BlockTitle>Recovered:</BlockTitle>
         <BlockSpan>{stats.recovered ? stats.recovered.value : "NA"}</BlockSpan>
       </StatBlock>
     </Container>
