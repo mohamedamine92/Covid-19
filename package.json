@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "next",
+        "dev": "next",
+        "start": "next start -p $PORT",
         "build": "next build",
         "heroku-postbuild": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 1"
