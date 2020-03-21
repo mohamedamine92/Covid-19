@@ -1,7 +1,9 @@
 import { useState } from "react";
-import useStats from "../utils/useStats";
+import { useStats } from "../utils/useStats";
 import Stats from "./Stats";
 import styles from "styled-components";
+import React, { Component } from "react";
+import Select from "react-select";
 
 const Container = styles.div`
   display: flex;
@@ -10,58 +12,57 @@ const Container = styles.div`
   align-items: center;
 `;
 
-const Select = styles.select`
-  width: 10rem;
-  height: 2rem;
-  background-color: transparent;
-  font-size: 1.4rem;
-  border-radius: 0;
-  outline: none;
-  color: #fff;
-  border: none;
-  border-bottom: 2px solid #f2f2f2;
-  margin-bottom: 2rem;
-  text-align: center;
-  position: relative;
-  
-  &::after {
-    content: 'OLA';
-    color: red;    
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-`;
+const colourStyles = {
+  width: "10rem",
+  height: "2rem",
+  backgroundColor: "transparent",
+  fontSize: "1.4rem",
+  borderRadius: "0",
+  outline: "none",
+  color: "#fff",
+  border: "none",
+  borderBottom: "2px solid #f2f2f2",
+  marginBottom: "2rem",
+  textAlign: "center",
+  position: "relative"
+};
+
 export default function CountrySelector() {
   const { stats: countries, loading, error } = useStats(
     "https://covid19.mathdro.id/api/countries"
   );
-  const [selectedCountry, setSelectedCountry] = useState("FRA");
+  const [selectedCountry, setSelectedCountry] = useState({
+    value: "FRA",
+    label: "France"
+  });
+
+  const options = countries
+    ? Object.entries(countries.countries).map(([country, code]) => {
+        return { value: countries.iso3[code], label: country };
+      })
+    : [];
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
 
   return (
-    <Container>
-      <h2>Currently Showing {selectedCountry}</h2>
-      <Select
-        onChange={e => {
-          setSelectedCountry(e.target.value);
-        }}
-        defaultValue={selectedCountry}
-      >
-        {Object.entries(countries.countries).map(([country, code]) => (
-          <option
-            selected={selectedCountry === countries.iso3[code]}
-            key={code}
-            value={countries.iso3[code]}
-          >
-            {country}
-          </option>
-        ))}
-      </Select>
+    <div>
+      <h2 style={{ textAlign: "center", color: "#fff" }}>
+        Currently Showing {selectedCountry.label}
+      </h2>
+      <div style={{ marginBottom: "23px" }}>
+        <Select
+          onChange={selectedOption => {
+            setSelectedCountry(selectedOption);
+          }}
+          defaultValue={{ value: "FRA", label: "France" }}
+          options={options}
+        ></Select>
+      </div>
+
       <Stats
-        url={`https://covid19.mathdro.id/api/countries/${selectedCountry}`}
+        url={`https://covid19.mathdro.id/api/countries/${selectedCountry.value}`}
       ></Stats>
-    </Container>
+    </div>
   );
 }

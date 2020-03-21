@@ -8,7 +8,6 @@ import backgroundImage from "../assets/background.jpeg";
 const GlobalStyle = createGlobalStyle`
   html {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #fff;
       min-height: 100%;
   }
   body {
@@ -25,7 +24,7 @@ export default function IndexPage() {
   return (
     <Fragment>
       <GlobalStyle />
-      <h2 style={{ textAlign: "center" }}>Global Stats</h2>
+      <h2 style={{ textAlign: "center", color: "#fff" }}>Global Stats</h2>
       <Stats url="https://covid19.mathdro.id/api"> </Stats>
       <CountrySelector></CountrySelector>
     </Fragment>

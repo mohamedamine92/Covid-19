@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+const nf = Intl.NumberFormat();
 
-export default function useStats(url) {
+export function useStats(url) {
     const [stats, setStats] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
@@ -30,4 +31,30 @@ export default function useStats(url) {
         loading,
         error
     };
+}
+
+
+
+export const formatDate = (dateString) => {
+    const dt = new Date(dateString);
+    return `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt
+    .getDate()
+    .toString()
+    .padStart(2, '0')}/${dt
+    .getFullYear()
+    .toString()
+    .padStart(4, '0')} ${dt
+    .getHours()
+    .toString()
+    .padStart(2, '0')}:${dt
+    .getMinutes()
+    .toString()
+    .padStart(2, '0')}:${dt
+    .getSeconds()
+    .toString()
+    .padStart(2, '0')}`;
+};
+
+export const formatNumber = (num) => {
+    return nf.format(num)
 }

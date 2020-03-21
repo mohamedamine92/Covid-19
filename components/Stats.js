@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useStats from "../utils/useStats";
+import { useStats, formatDate, formatNumber } from "../utils/useStats";
 import { isMobile } from "react-device-detect";
 
 const Container = styled.div`
@@ -43,19 +43,30 @@ export default function Stats({ url }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
-    <Container>
-      <StatBlock>
-        <BlockTitle>Confirmed:</BlockTitle>
-        <BlockSpan>{stats.confirmed ? stats.confirmed.value : "NA"}</BlockSpan>
-      </StatBlock>
-      <StatBlock>
-        <BlockTitle>Deaths:</BlockTitle>
-        <BlockSpan>{stats.deaths ? stats.deaths.value : "NA"}</BlockSpan>
-      </StatBlock>
-      <StatBlock>
-        <BlockTitle>Recovered:</BlockTitle>
-        <BlockSpan>{stats.recovered ? stats.recovered.value : "NA"}</BlockSpan>
-      </StatBlock>
-    </Container>
+    <div>
+      <Container>
+        <StatBlock>
+          <BlockTitle>Confirmed:</BlockTitle>
+          <BlockSpan>
+            {stats.confirmed ? formatNumber(stats.confirmed.value) : "NA"}
+          </BlockSpan>
+        </StatBlock>
+        <StatBlock>
+          <BlockTitle>Deaths:</BlockTitle>
+          <BlockSpan>
+            {stats.deaths ? formatNumber(stats.deaths.value) : "NA"}
+          </BlockSpan>
+        </StatBlock>
+        <StatBlock>
+          <BlockTitle>Recovered:</BlockTitle>
+          <BlockSpan>
+            {stats.recovered ? formatNumber(stats.recovered.value) : "NA"}
+          </BlockSpan>
+        </StatBlock>
+      </Container>
+      <h3 style={{ color: "white", textAlign: "center", fontSize: "12px" }}>
+        Last update: {stats.lastUpdate ? formatDate(stats.lastUpdate) : "NA"}
+      </h3>
+    </div>
   );
 }
