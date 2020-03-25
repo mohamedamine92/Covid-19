@@ -28,20 +28,17 @@ const colourStyles = {
 };
 
 export default function CountrySelector() {
-  const { stats: countries, loading, error } = useStats(
-    "https://covid19.mathdro.id/api/countries"
-  );
+  const { stats: countries, loading, error } = useStats("https://covid19.mathdro.id/api/countries");
   const [selectedCountry, setSelectedCountry] = useState({
     value: "FRA",
     label: "France"
   });
 
   const options = countries
-    ? Object.entries(countries.countries).map(([country, code]) => {
-        return { value: countries.iso3[code], label: country };
+    ? countries.countries.map(elem => {
+        return { value: elem.iso3, label: elem.name };
       })
     : [];
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
 
@@ -60,9 +57,7 @@ export default function CountrySelector() {
         ></Select>
       </div>
 
-      <Stats
-        url={`https://covid19.mathdro.id/api/countries/${selectedCountry.value}`}
-      ></Stats>
+      <Stats url={`https://covid19.mathdro.id/api/countries/${selectedCountry.value}`}></Stats>
     </div>
   );
 }
