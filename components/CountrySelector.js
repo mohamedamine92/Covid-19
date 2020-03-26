@@ -4,6 +4,7 @@ import Stats from "./Stats";
 import styles from "styled-components";
 import React, { Component } from "react";
 import Select from "react-select";
+import SimpleLineChart from "./SimpleLineChart";
 
 const Container = styles.div`
   display: flex;
@@ -29,6 +30,7 @@ const colourStyles = {
 
 export default function CountrySelector() {
   const { stats: countries, loading, error } = useStats("https://covid19.mathdro.id/api/countries");
+
   const [selectedCountry, setSelectedCountry] = useState({
     value: "FRA",
     label: "France"
@@ -58,6 +60,7 @@ export default function CountrySelector() {
       </div>
 
       <Stats url={`https://covid19.mathdro.id/api/countries/${selectedCountry.value}`}></Stats>
+      {selectedCountry.label === "France" && <SimpleLineChart></SimpleLineChart>}
     </div>
   );
 }
