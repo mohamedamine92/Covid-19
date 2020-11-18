@@ -6,10 +6,10 @@ export function useStats(url) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
 
-    useEffect(() => {
-        async function fetchData() {
-            setLoading(true);
-            setError();
+
+    useEffect( () => {
+        setLoading(true);
+        const fetchData = async () =>  {
             try {
                 const res = await fetch(url);
                 const data = await res.json();
@@ -33,8 +33,6 @@ export function useStats(url) {
     };
 }
 
-
-
 export const formatDate = (dateString) => {
     const dt = new Date(dateString);
     return `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt
@@ -54,6 +52,18 @@ export const formatDate = (dateString) => {
     .toString()
     .padStart(2, '0')}`;
 };
+
+export const formatDateShort = (dateString) => {
+    const dt = new Date(dateString);
+    return `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt
+      .getDate()
+      .toString()
+      .padStart(2, '0')}/${dt
+      .getFullYear()
+      .toString()
+    }`;
+};
+
 
 export const formatNumber = (num) => {
     return nf.format(num)

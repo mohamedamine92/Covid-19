@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import Stats from "../components/Stats";
 import CountrySelector from "../components/CountrySelector";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import backgroundImage from "../assets/background.jpeg";
 const GlobalStyle = createGlobalStyle`
   html {
@@ -23,8 +23,8 @@ export default function IndexPage() {
     <Fragment>
       <GlobalStyle />
       <h2 style={{ textAlign: "center", color: "#fff" }}>Global Stats</h2>
-      <Stats url="https://covid19.mathdro.id/api"> </Stats>
-      <CountrySelector></CountrySelector>
+      <Stats url="https://covid19.mathdro.id/api"/>
+      <CountrySelector/>
     </Fragment>
   );
 }

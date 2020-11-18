@@ -11,15 +11,15 @@ const Container = styled.div`
 `;
 
 const StatBlock = styled.div`
-  width: 8rem;
+  width: 9rem;
   background: #f2f2f2;
   padding: 1rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  text-align: center;
+  text-align: left;
   color: #000;
 
   &:nth-child(2) {
@@ -35,7 +35,7 @@ const BlockTitle = styled.h3`
 
 const BlockSpan = styled.span`
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 500;
 `;
 
 export default function Stats({ url }) {
