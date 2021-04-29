@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Line} from "react-chartjs-2";
+import React from "react";
+import { Line } from "react-chartjs-2";
 import colors from "../styles/colors";
-import {formatDateShort, useStats} from "../utils/useStats";
+import { formatDateShort, useStats } from "../utils/useStats";
 
 const options = {
   legend: {
@@ -9,7 +9,7 @@ const options = {
   },
   tooltips: {
     mode: "index",
-    filter(item) {
+    filter (item) {
       return item.value !== "NaN";
     }
   },
@@ -19,29 +19,29 @@ const formatData = data => {
   console.log(data);
   const datasets = [];
   //let unifiedData = {};
-  if (data.some(({deces}) => deces)) {
+  if (data.some(({ deces }) => deces)) {
     datasets.push({
       spanGaps: true,
       label: "Décès",
-      data: data.map(({deces}) => deces || 0),
+      data: data.map(({ deces: }) => deces || 0),
       backgroundColor: colors.red
     });
   }
 
-  if (data.some(({reanimation}) => reanimation)) {
+  if (data.some(({ reanimation }) => reanimation)) {
     datasets.push({
       spanGaps: true,
       label: "En réanimation",
-      data: data.map(({reanimation}) => reanimation || 0),
+      data: data.map(({ reanimation }) => reanimation || 0),
       backgroundColor: colors.darkerGrey
     });
   }
 
-  if (data.some(({hospitalises}) => hospitalises)) {
+  if (data.some(({ hospitalises }) => hospitalises)) {
     datasets.push({
       spanGaps: true,
       label: "Autre hospitalisation",
-      data: data.map(({hospitalises, reanimation}) => {
+      data: data.map(({ hospitalises, reanimation }) => {
         if (hospitalises) return hospitalises - (reanimation || 0);
         else return 0;
       }),
@@ -49,31 +49,31 @@ const formatData = data => {
     });
   }
 
-  if (data.some(({gueris}) => gueris)) {
+  if (data.some(({ gueris }) => gueris)) {
     datasets.push({
       spanGaps: true,
       label: "Guéris",
-      data: data.map(({gueris}) => gueris || 0),
+      data: data.map(({ gueris }) => gueris || 0),
       backgroundColor: colors.green
     });
   }
 
-  if (data.some(({casConfirmes}) => casConfirmes)) {
+  if (data.some(({ casConfirmes }) => casConfirmes)) {
     datasets.push({
       spanGaps: true,
       label: "Confirmés",
-      data: data.map(({casConfirmes}) => casConfirmes || 0),
+      data: data.map(({ casConfirmes }) => casConfirmes || 0),
       backgroundColor: colors.orange
     });
   }
 
   return {
-    labels: data.map(d =>formatDateShort(d.date)),
+    labels: data.map(d => formatDateShort(d.date)),
     datasets
   };
 };
 
-export default function SimpleLineChart() {
+export default function SimpleLineChart () {
   const { stats: franceStats, loading, error } = useStats(
     "https://raw.githubusercontent.com/opencovid19-fr/data/master/dist/chiffres-cles.json"
   );
@@ -87,7 +87,7 @@ export default function SimpleLineChart() {
 
   return (
     <div style={{ padding: "1em", backgroundColor: "white" }}>
-      <Line data={formatData(data)} options={options} height={400} width={1500}/>
+      <Line data={formatData(data)} options={options} height={400} width={1500} />
     </div>
   );
 }
