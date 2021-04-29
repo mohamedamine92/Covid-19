@@ -23,7 +23,7 @@ const formatData = data => {
     datasets.push({
       spanGaps: true,
       label: "Décès",
-      data: data.map(({ deces: }) => deces || 0),
+      data: data.map(({ deces }) => deces || 0),
       backgroundColor: colors.red
     });
   }
